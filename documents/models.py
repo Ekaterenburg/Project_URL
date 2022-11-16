@@ -31,6 +31,7 @@ class Book(Base):
     date = sq.Column(sq.Integer, nullable=True)
     rating = sq.Column(sq.String, nullable=True)
     pages = sq.Column(sq.Integer, nullable=True)
+    id_genre = sq.Column(sq.Integer, sq.)
     pablishinghouse = sq.Column(sq.Integer, sq.ForeignKey('pablishinghouse.id'), nullable=True)
 
 class PablishingHouse(Base):
