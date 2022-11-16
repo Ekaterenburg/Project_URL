@@ -31,23 +31,23 @@ class Book(Base):
     date = sq.Column(sq.Integer, nullable=True)
     rating = sq.Column(sq.String, nullable=True)
     pages = sq.Column(sq.Integer, nullable=True)
-    id_genre = sq.Column(sq.Integer, sq.)
-    pablishinghouse = sq.Column(sq.Integer, sq.ForeignKey('pablishinghouse.id'), nullable=True)
+    id_genre = sq.Column(sq.Integer, sq.ForeignKey('genre.id'), nullable=False)
+    publishinghouse = sq.Column(sq.Integer, sq.ForeignKey('publishinghouse.id'), nullable=True)
 
-class PablishingHouse(Base):
-    '''
-    издалельство
-    '''
-    __tablename__ = 'pablishinghouse'
+class PublishingHouse(Base):
+    """
+    издательство
+    """
+    __tablename__ = 'publishinghouse'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     title = sq.Column(sq.String, nullable=False)
-    country = sq.Column(sq.Integer, sq.ForeignKey('country.id'), nulltable=True)
+    country = sq.Column(sq.Integer, sq.ForeignKey('country.id'), nullable=True)
 
 class Country(Base):
     '''
     страны
     '''
-    __tablename__ = 'pablishinghouse'
+    __tablename__ = 'country'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     title = sq.Column(sq.String, nullable=False)
 
