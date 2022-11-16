@@ -35,4 +35,5 @@ list_country = ('Россия', 'Германия', 'Франция', 'США', 
 list_genre = ('ужасы', "триллер", "комедия", "драмма", "фантастика", "фентези", "документальные", "мемуары", "детектив", "боевик")
 add_genre(session, list_genre)
 add_country(session, list_country)
+
 session.close()
