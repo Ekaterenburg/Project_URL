@@ -3,60 +3,68 @@ from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
-class Genre(Base):
+class Dish(Base):
     '''
-    жанры
+    блюдо
     '''
-    __tablename__ = 'genre'
+    __tablename__ = 'dish'
+    id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
+    title = sq.Column(sq.String, nullable=False)
+    origin = sq.Column(sq.String, nullable=True)
+    recipe = sq.Column(sq.String, nullable=True)
+    dish_category = sq.Column(sq.String, nullable=True)
+    complexity = sq.Column(sq.String, nullable=True)
+    ingredients = sq.Column(sq.String, nullable=True)
+
+class Origin(Base):
+    '''
+    происхождение
+    '''
+    __tablename__ = 'origin'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     title = sq.Column(sq.String, nullable=False)
 
-class Autor(Base):
+class Recipe(Base):
     '''
-    авторы
+    рецепт
     '''
-    __tablename__ = 'autor'
+    __tablename__ = 'recipe'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     name = sq.Column(sq.String, nullable=False)
     surname = sq.Column(sq.String, nullable=False)
     nickname = sq.Column(sq.String, nullable=False)
 
-class Book(Base):
-    '''
-    книги
-    '''
-    __tablename__ = 'book'
-    id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
-    title = sq.Column(sq.String, nullable=False)
-    date = sq.Column(sq.Integer, nullable=True)
-    rating = sq.Column(sq.String, nullable=True)
-    pages = sq.Column(sq.Integer, nullable=True)
-    id_genre = sq.Column(sq.Integer, sq.ForeignKey('genre.id'), nullable=False)
-    publishinghouse = sq.Column(sq.Integer, sq.ForeignKey('publishinghouse.id'), nullable=True)
-
-class PublishingHouse(Base):
+class Dish_category(Base):
     """
-    издательство
+    категория
     """
-    __tablename__ = 'publishinghouse'
+    __tablename__ = 'dish_category'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     title = sq.Column(sq.String, nullable=False)
     country = sq.Column(sq.Integer, sq.ForeignKey('country.id'), nullable=True)
 
-class Country(Base):
+class Complexity(Base):
     '''
-    страны
+    сложность
     '''
-    __tablename__ = 'country'
+    __tablename__ = 'complexity'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     title = sq.Column(sq.String, nullable=False)
 
+class Ingredients(Base):
+    '''
+    ингредиенты
+    '''
+    __tablename__ = 'ingredients'
+    id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
+    title = sq.Column(sq.String, nullable=False)
+'''
 class BookAutor(Base):
     __tablename__ = 'book-autor'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     id_book = sq.Column(sq.Integer, sq.ForeignKey('book.id'), nullable=False)
     id_autor = relationship(Autor, backref='autor_book')
-
+'''
 def create_table(engine):
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
