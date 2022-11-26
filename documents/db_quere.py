@@ -2,7 +2,7 @@ import sqlalchemy as sq
 import os
 from sqlalchemy.orm import sessionmaker
 from models import *
-
+'''
 def add_genre(session, list_genre: tuple) -> bool:
     try:
         for genre in list_genre:
@@ -12,18 +12,18 @@ def add_genre(session, list_genre: tuple) -> bool:
         return True
     except:
         return False
-
-def add_country(session, list_country: tuple) -> bool:
+'''
+def add_origin(session, list_origin: tuple) -> bool:
     try:
-        for country  in list_country:
-            add_ = Country(title=country)
+        for origin in list_origin:
+            add_ = Origin(title=origin)
             session.add(add_)
         session.commit()
         return True
     except:
         return False
 
-base_name = 'baza'
+base_name = 'kulinar-book'
 DSN = f'sqlite:///{base_name}'
 engine = sq.create_engine(DSN)
 create_table(engine)
@@ -31,8 +31,6 @@ create_table(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-list_country = ('Россия', 'Германия', 'Франция', 'США', 'Япония')
-list_genre = ('ужасы', "триллер", "комедия", "драмма", "фантастика", "фентези", "документальные", "мемуары", "детектив", "боевик")
-add_genre(session, list_genre)
-add_country(session, list_country)
+list_origin = ('Вьетнам ', 'Китай ', 'Тайланд', 'Южная Корея', 'Япония')
+add_origin(session, list_origin)
 session.close()

@@ -10,11 +10,11 @@ class Dish(Base):
     __tablename__ = 'dish'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     title = sq.Column(sq.String, nullable=False)
-    origin = sq.Column(sq.String, nullable=True)
-    recipe = sq.Column(sq.String, nullable=True)
-    dish_category = sq.Column(sq.String, nullable=True)
-    complexity = sq.Column(sq.String, nullable=True)
-    ingredients = sq.Column(sq.String, nullable=True)
+    origin = sq.Column(sq.String, sq.ForeignKey('origin.id'), nullable=True)
+    recipe = sq.Column(sq.String, sq.ForeignKey('recipe.id'), nullable=True)
+    dish_category = sq.Column(sq.String, sq.ForeignKey('dish_category.id'), nullable=True)
+    complexity = sq.Column(sq.Integer, sq.ForeignKey('complexity.id'), nullable=True)
+    ingredients = sq.Column(sq.String, sq.ForeignKey('ingredients.id'), nullable=True)
 
 class Origin(Base):
     '''
@@ -30,9 +30,8 @@ class Recipe(Base):
     '''
     __tablename__ = 'recipe'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
-    name = sq.Column(sq.String, nullable=False)
-    surname = sq.Column(sq.String, nullable=False)
-    nickname = sq.Column(sq.String, nullable=False)
+    title = sq.Column(sq.String, nullable=False)
+    manual = sq.Column(sq.String, nullable=False)
 
 class Dish_category(Base):
     """
@@ -41,7 +40,6 @@ class Dish_category(Base):
     __tablename__ = 'dish_category'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     title = sq.Column(sq.String, nullable=False)
-    country = sq.Column(sq.Integer, sq.ForeignKey('country.id'), nullable=True)
 
 class Complexity(Base):
     '''
@@ -51,6 +49,7 @@ class Complexity(Base):
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     title = sq.Column(sq.String, nullable=False)
 
+
 class Ingredients(Base):
     '''
     ингредиенты
@@ -58,13 +57,8 @@ class Ingredients(Base):
     __tablename__ = 'ingredients'
     id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
     title = sq.Column(sq.String, nullable=False)
-'''
-class BookAutor(Base):
-    __tablename__ = 'book-autor'
-    id = sq.Column(sq.Integer, primary_key=True, unique=True, autoincrement=True)
-    id_book = sq.Column(sq.Integer, sq.ForeignKey('book.id'), nullable=False)
-    id_autor = relationship(Autor, backref='autor_book')
-'''
+    enabling = sq.Column(sq.Integer, nullable=False)
+
 def create_table(engine):
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
